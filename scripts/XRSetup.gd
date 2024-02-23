@@ -7,7 +7,6 @@ func _ready():
 	if xr_interface and xr_interface.is_initialized():
 		print("OpenXR setup was successfully executed.")
 		DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
-		Engine.max_fps = 90
 		get_viewport().use_xr = true
 	else:
 		print("OpenXR did not find a headset.")
