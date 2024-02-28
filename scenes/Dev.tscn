@@ -1,14 +1,7 @@
-[gd_scene load_steps=19 format=3 uid="uid://bysdkln2dtal8"]
+[gd_scene load_steps=12 format=3 uid="uid://bysdkln2dtal8"]
 
-[ext_resource type="Script" path="res://scripts/XRSetup.gd" id="1_quh1t"]
-[ext_resource type="PackedScene" path="res://addons/godot-xr-tools/misc/vr_common_shader_cache.tscn" id="2_hm67s"]
-[ext_resource type="PackedScene" uid="uid://b4kad2kuba1yn" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/left_hand_low.tscn" id="3_l6bjw"]
-[ext_resource type="PackedScene" uid="uid://bl2nuu3qhlb5k" path="res://addons/godot-xr-tools/functions/movement_direct.tscn" id="4_dbu4u"]
-[ext_resource type="PackedScene" uid="uid://l2n30mpbkdyw" path="res://addons/godot-xr-tools/hands/scenes/lowpoly/right_hand_low.tscn" id="4_nr6ml"]
-[ext_resource type="PackedScene" uid="uid://b6bk2pj8vbj28" path="res://addons/godot-xr-tools/functions/movement_turn.tscn" id="5_mt6od"]
-[ext_resource type="PackedScene" uid="uid://fiul51tsyoop" path="res://addons/godot-xr-tools/functions/function_teleport.tscn" id="7_edj4u"]
-[ext_resource type="PackedScene" uid="uid://diyu06cw06syv" path="res://addons/godot-xr-tools/player/player_body.tscn" id="8_2s5hu"]
-[ext_resource type="LightmapGIData" uid="uid://dru8y7w8kfad0" path="res://Dev.lmbake" id="9_62fek"]
+[ext_resource type="Script" path="res://scripts/XRSetup.gd" id="1_i1vuq"]
+[ext_resource type="Script" path="res://addons/godot-xr-tools/objects/pickable.gd" id="2_urd3j"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_djt1u"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -59,43 +52,15 @@ shadow_mesh = SubResource("ArrayMesh_x8rke")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ahe36"]
 albedo_color = Color(0, 0.352941, 0.690196, 1)
 
-[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_4s21n"]
-
 [sub_resource type="BoxMesh" id="BoxMesh_cgsg5"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_ajate"]
+
 [node name="Root" type="Node3D"]
-script = ExtResource("1_quh1t")
+script = ExtResource("1_i1vuq")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_j5pd7")
-
-[node name="XROrigin3D" type="XROrigin3D" parent="."]
-
-[node name="XRCamera3D" type="XRCamera3D" parent="XROrigin3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
-
-[node name="VRCommonShaderCache" parent="XROrigin3D/XRCamera3D" instance=ExtResource("2_hm67s")]
-
-[node name="LeftHand" type="XRController3D" parent="XROrigin3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 1, -0.5)
-tracker = &"left_hand"
-
-[node name="LeftHand" parent="XROrigin3D/LeftHand" instance=ExtResource("3_l6bjw")]
-
-[node name="MovementDirect" parent="XROrigin3D/LeftHand" instance=ExtResource("4_dbu4u")]
-
-[node name="RightHand" type="XRController3D" parent="XROrigin3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1, -0.5)
-tracker = &"right_hand"
-
-[node name="RightHand" parent="XROrigin3D/RightHand" instance=ExtResource("4_nr6ml")]
-
-[node name="FunctionTeleport" parent="XROrigin3D/RightHand" instance=ExtResource("7_edj4u")]
-
-[node name="MovementTurn" parent="XROrigin3D/RightHand" instance=ExtResource("5_mt6od")]
-turn_mode = 2
-
-[node name="PlayerBody" parent="XROrigin3D" instance=ExtResource("8_2s5hu")]
 
 [node name="MainDirLight" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.560639, -0.751695, -0.347332, 0, -0.419452, 0.907777, -0.82806, 0.508936, 0.235161, 0, 0, 0)
@@ -112,11 +77,15 @@ material_override = SubResource("StandardMaterial3D_ahe36")
 use_collision = true
 size = Vector3(14, 0.1, 15)
 
-[node name="LightmapGI" type="LightmapGI" parent="."]
-directional = true
-camera_attributes = SubResource("CameraAttributesPractical_4s21n")
-light_data = ExtResource("9_62fek")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="XRToolsPickable" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.09732, 2.49644)
+script = ExtResource("2_urd3j")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="XRToolsPickable"]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
 mesh = SubResource("BoxMesh_cgsg5")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="XRToolsPickable"]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+shape = SubResource("BoxShape3D_ajate")

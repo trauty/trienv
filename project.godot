@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Trienv"
-run/main_scene="res://Dev.tscn"
+run/main_scene="res://scenes/MainMenu.tscn"
 config/features=PackedStringArray("4.2", "Mobile")
 config/icon="res://icon.svg"
 
@@ -21,6 +21,8 @@ XRToolsUserSettings="*res://addons/godot-xr-tools/user_settings/user_settings.gd
 
 [display]
 
+window/size/viewport_width=1280
+window/size/viewport_height=720
 window/vsync/vsync_mode=0
 
 [editor_plugins]
@@ -33,7 +35,7 @@ common/physics_ticks_per_second=90
 
 [rendering]
 
-renderer/rendering_method="mobile"
+renderer/rendering_method="gl_compatibility"
 textures/vram_compression/import_etc2_astc=true
 
 [xr]
