@@ -15,17 +15,13 @@ run/main_scene="res://Dev.tscn"
 config/features=PackedStringArray("4.2", "Mobile")
 config/icon="res://icon.svg"
 
-[autoload]
-
-XRToolsUserSettings="*res://addons/godot-xr-tools/user_settings/user_settings.gd"
-
 [display]
 
 window/vsync/vsync_mode=0
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/godot-xr-tools/plugin.cfg")
+enabled=PackedStringArray()
 
 [physics]
 
@@ -33,10 +29,9 @@ common/physics_ticks_per_second=90
 
 [rendering]
 
-renderer/rendering_method="mobile"
+renderer/rendering_method="gl_compatibility"
 textures/vram_compression/import_etc2_astc=true
 
 [xr]
 
-openxr/enabled=true
 shaders/enabled=true
