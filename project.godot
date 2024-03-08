@@ -11,12 +11,14 @@ config_version=5
 [application]
 
 config/name="Trienv"
-run/main_scene="res://Dev.tscn"
+run/main_scene="res://scenes/MainMenu.tscn"
 config/features=PackedStringArray("4.2", "Mobile")
 config/icon="res://icon.svg"
 
 [display]
 
+window/size/viewport_width=1280
+window/size/viewport_height=720
 window/vsync/vsync_mode=0
 
 [editor_plugins]
