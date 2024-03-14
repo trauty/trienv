@@ -1,0 +1,40 @@
+[gd_scene load_steps=4 format=3 uid="uid://bmv3sdyg0ks72"]
+
+[ext_resource type="Script" path="res://scripts/SceneButton.gd" id="1_yo0oe"]
+[ext_resource type="FontFile" uid="uid://3hcqprns2mgb" path="res://Montserrat-Regular.ttf" id="2_3e7tu"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_jsm26"]
+font = ExtResource("2_3e7tu")
+font_size = 28
+outline_size = 4
+outline_color = Color(0.211765, 0.211765, 0.211765, 1)
+shadow_size = 0
+
+[node name="SceneButton" type="Button"]
+custom_minimum_size = Vector2(256, 144)
+size_flags_horizontal = 6
+size_flags_vertical = 4
+script = ExtResource("1_yo0oe")
+
+[node name="Banner" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+
+[node name="Name" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "..."
+label_settings = SubResource("LabelSettings_jsm26")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="button_down" from="." to="." method="_on_button_down"]
